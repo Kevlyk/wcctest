@@ -1,0 +1,15 @@
+docker pull mysql/mysql:5.7
+docker run --rm -d -e MYSQL_ROOT_PASSWORD=root123 -p 3360:3306 --name wcctest mysql:5.7
+docker exec -it wcctest mysql -uroot -p
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'root123';
+create database wcctest;
+CREATE TABLE IF NOT EXISTS `postcodelatlng` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `postcode` varchar(8) NOT NULL,
+  `latitude` decimal(12,9) NOT NULL,
+  `longitude` decimal(12,9) NOT NULL,
+  PRIMARY KEY (`id`)
+) AUTO_INCREMENT=1;
+CREATE UNIQUE INDEX idx_postcode on postcodelatlng(postcode);
+mysql -uroot -ppass -h127.0.0.1 -P3360 -proot123 wcctest < ./ukpostcodesmysql.sql
+

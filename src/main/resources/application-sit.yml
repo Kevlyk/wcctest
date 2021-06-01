@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3360/wcctest?serverTimezone=Asia/Kuala_Lumpur&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: root123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jackson:
+    default-property-inclusion: non_null
+    date-format: yyyy-MM-dd HH:mm:ss
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+    time-zone: Asia/Kuala_Lumpur

@@ -1,0 +1,12 @@
+spring:
+  profiles:
+    active: sit
+  jackson:
+    default-property-inclusion: non_null
+    date-format: yyyy-MM-dd HH:mm:ss
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+    time-zone: Asia/Kuala_Lumpur
+
+server:
+  port: 8888
