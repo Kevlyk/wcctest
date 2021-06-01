@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
 @Configuration
@@ -25,11 +26,16 @@ public class HttpBasicAuthenticationAdapter extends
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .httpBasic()
+                .authorizeRequests(authorizeRequests ->
+                        authorizeRequests
+                                .antMatchers("/postcode/*").hasAnyRole("USER")
+                                .antMatchers("/").permitAll()
+                )
+                .httpBasic().realmName("wcc realm")
                 .and()
-                .authorizeRequests()
-                .antMatchers("/**").permitAll()
-                .anyRequest().authenticated();
+                .csrf().disable()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     @Bean
